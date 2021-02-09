@@ -54,7 +54,8 @@ class _DailyState extends State<Daily> {
                                     quentity: my_data[i]["quentety"],
                                     color1: my_data[i]["color1"],
                                     color2: my_data[i]["color2"],
-                                    description: my_data[i]["description"])),
+                                    description: my_data[i]["description"],
+                                    quan: my_data[i]["quan"])),
                           )
                       ],
                     )

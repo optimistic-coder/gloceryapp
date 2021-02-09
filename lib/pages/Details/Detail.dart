@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:grocery_test_app/bloc/food_bloc.dart';
+import 'package:grocery_test_app/events/food_event.dart';
+import 'package:grocery_test_app/model/Food.dart';
+import 'package:grocery_test_app/pages/Cart/Cart.dart';
 import 'package:grocery_test_app/pages/Home/Daily.dart';
 import 'package:grocery_test_app/widgets/DetailSceenCard.dart';
 import 'CurveDetail.dart';
@@ -6,6 +11,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Detail extends StatefulWidget {
   String image, price, name, quentity, description, color1, color2;
+  int quan;
   Detail(
       {this.image,
       this.name,
@@ -13,7 +19,8 @@ class Detail extends StatefulWidget {
       this.quentity,
       this.color1,
       this.color2,
-      this.description});
+      this.description,
+      this.quan});
   @override
   _DetailState createState() => _DetailState();
 }
@@ -81,7 +88,22 @@ class _DetailState extends State<Detail> {
             child: Container(
               width: width,
               child: FloatingActionButton(
-                onPressed: () {},
+                onPressed: () {
+                  BlocProvider.of<FoodBloc>(context).add(
+                    FoodEvent.add(
+                      Foods(
+                          widget.image,
+                          widget.name,
+                          widget.price,
+                          widget.quentity,
+                          widget.color1,
+                          widget.color2,
+                          widget.description,
+                          widget.quan),
+                    ),
+                  );
+                  Navigator.pop(context);
+                },
                 child: Container(
                   decoration: BoxDecoration(
                       gradient: LinearGradient(colors: [

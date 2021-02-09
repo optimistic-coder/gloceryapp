@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/screenutil_init.dart';
 import 'package:grocery_test_app/widgets/Bottom_Tab.dart';
+
+import 'bloc/food_bloc.dart';
 
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      home: Screenutils(),
+    return BlocProvider<FoodBloc>(
+      create: (context) => FoodBloc(),
+      child: MaterialApp(
+        title: 'Coding with Curry',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+          secondaryHeaderColor: Colors.red,
+        ),
+        home: Screenutils(),
+      ),
     );
   }
 }

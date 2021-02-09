@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grocery_test_app/bloc/food_bloc.dart';
+import 'package:grocery_test_app/events/food_event.dart';
+import 'package:grocery_test_app/model/Food.dart';
 
 class Cards extends StatefulWidget {
   String image, price, name, quentity, color1, color2, description;
+  int quan;
   Cards(
       {this.image,
       this.name,
@@ -10,12 +15,20 @@ class Cards extends StatefulWidget {
       this.quentity,
       this.color1,
       this.color2,
-      this.description});
+      this.description,
+      this.quan});
   @override
   _CardsState createState() => _CardsState();
 }
 
 class _CardsState extends State<Cards> {
+  var press = false;
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
@@ -90,11 +103,71 @@ class _CardsState extends State<Cards> {
                   Color(int.parse(widget.color2)),
                 ], begin: Alignment.centerLeft, end: Alignment.centerRight)),
                 width: width * 0.43,
-                child: Center(
-                    child: Text(
-                  "ADD to Cart",
-                  style: TextStyle(color: Colors.white),
-                )),
+                child: press == false
+                    ? InkWell(
+                        onTap: () {
+                          BlocProvider.of<FoodBloc>(context).add(
+                            FoodEvent.add(
+                              Foods(
+                                  widget.image,
+                                  widget.name,
+                                  widget.price,
+                                  widget.quentity,
+                                  widget.color1,
+                                  widget.color2,
+                                  widget.description,
+                                  widget.quan),
+                            ),
+                          );
+                          setState(() {
+                            press = true;
+                          });
+                        },
+                        child: Center(
+                            child: Text(
+                          "ADD to Cart",
+                          style: TextStyle(color: Colors.white),
+                        )),
+                      )
+                    : Row(
+                        children: [
+                          SizedBox(
+                            width: 40.w,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15))),
+                            child: Icon(
+                              Icons.remove,
+                              color: Colors.green,
+                            ),
+                          ),
+                          SizedBox(
+                            width: 20.w,
+                          ),
+                          Text(
+                            widget.quan.toString(),
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold),
+                          ),
+                          SizedBox(
+                            width: 20.w,
+                          ),
+                          Container(
+                            decoration: BoxDecoration(
+                                color: Colors.white,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15))),
+                            child: Icon(
+                              Icons.add,
+                              color: Colors.green,
+                            ),
+                          )
+                        ],
+                      ),
               ))
         ],
       ),

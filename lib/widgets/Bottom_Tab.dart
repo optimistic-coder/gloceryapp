@@ -66,6 +66,7 @@ class _BottomTabState extends State<BottomTab> {
         currentIndex: _selectedIndex,
         selectedItemColor: Color(0xff6FBE0B),
         unselectedItemColor: Colors.black38,
+        showUnselectedLabels: true,
         onTap: _onItemTapped,
       ),
     );

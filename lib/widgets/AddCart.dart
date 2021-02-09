@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grocery_test_app/bloc/food_bloc.dart';
+import 'package:grocery_test_app/events/food_event.dart';
 
-class DailyCard extends StatefulWidget {
-  String image, price, name, quentity, description, color1, color2;
-  int quan;
-  DailyCard(
+class AddCart extends StatefulWidget {
+  String image, price, name, quentity, description;
+  int index;
+  AddCart(
       {this.image,
       this.name,
       this.price,
       this.quentity,
       this.description,
-      this.color1,
-      this.color2,
-      this.quan});
+      this.index});
   @override
-  _DailyCardState createState() => _DailyCardState();
+  _AddCartState createState() => _AddCartState();
 }
 
-class _DailyCardState extends State<DailyCard> {
-  @override
+class _AddCartState extends State<AddCart> {
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
     return Padding(
-      padding: EdgeInsets.only(bottom: 10.h),
+      padding: EdgeInsets.only(top: 10.h),
       child: Container(
         height: height * 0.15,
         width: width * 0.90,
@@ -44,7 +44,7 @@ class _DailyCardState extends State<DailyCard> {
                 margin: EdgeInsets.only(left: 20.w),
                 child: Image.asset(
                   widget.image,
-                  height: 100.h,
+                  height: 100,
                   width: width * 0.20,
                 )),
             Center(
@@ -74,22 +74,49 @@ class _DailyCardState extends State<DailyCard> {
               ),
             ),
             Positioned(
-              bottom: 20.h,
+              top: 10.h,
               right: 20.w,
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    gradient: LinearGradient(
-                        colors: [
-                          Color(int.parse(widget.color1)),
-                          Color(int.parse(widget.color2)),
-                        ],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight)),
-                child: Icon(
-                  Icons.add,
-                  color: Colors.white,
-                ),
+              child: Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.all(5),
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Color(0xffA8DE1C),
+                          borderRadius: BorderRadius.all(Radius.circular(15))),
+                      child: Icon(
+                        Icons.add,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                  Padding(
+                      padding: EdgeInsets.all(5),
+                      child: Text(
+                        "1",
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      )),
+                  Padding(
+                    padding: EdgeInsets.all(5),
+                    child: InkWell(
+                      onTap: () {
+                        BlocProvider.of<FoodBloc>(context).add(
+                          FoodEvent.delete(widget.index),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Color(0xffA8DE1C),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15))),
+                        child: Icon(
+                          Icons.remove,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
             )
           ],

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:delayed_display/delayed_display.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery_test_app/pages/Home/Daily.dart';
 import 'package:grocery_test_app/pages/Home/NewArr.dart';
@@ -63,7 +64,10 @@ class _HomeState extends State<Home> {
                                       )
                                   ],
                                 )
-                              : CircularProgressIndicator()
+                              : Container(
+                                  margin: EdgeInsets.only(
+                                      left: width * 0.50, top: 50.h),
+                                  child: CircularProgressIndicator())
                         ],
                       ),
                     );
@@ -71,26 +75,29 @@ class _HomeState extends State<Home> {
               SizedBox(
                 height: 24.h,
               ),
-              Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 10.w),
-                    decoration: BoxDecoration(color: Color(0xffFC5455)),
-                    child: Padding(
-                        padding: EdgeInsets.all(7),
-                        child: Text(
-                          "NEW ARRIVALS",
-                          style: TextStyle(color: Colors.white, fontSize: 12),
-                        )),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: width * 0.49, top: 10.h),
-                    child: Text(
-                      "SEE ALL",
-                      style: TextStyle(color: Color(0xffFC5455)),
+              DelayedDisplay(
+                delay: Duration(microseconds: 500),
+                child: Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: 10.w),
+                      decoration: BoxDecoration(color: Color(0xffFC5455)),
+                      child: Padding(
+                          padding: EdgeInsets.all(7),
+                          child: Text(
+                            "NEW ARRIVALS",
+                            style: TextStyle(color: Colors.white, fontSize: 12),
+                          )),
                     ),
-                  )
-                ],
+                    Container(
+                      margin: EdgeInsets.only(left: width * 0.49, top: 10.h),
+                      child: Text(
+                        "SEE ALL",
+                        style: TextStyle(color: Color(0xffFC5455)),
+                      ),
+                    )
+                  ],
+                ),
               ),
               SizedBox(
                 height: 10.h,
@@ -100,26 +107,29 @@ class _HomeState extends State<Home> {
               SizedBox(
                 height: 19.h,
               ),
-              Row(
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(left: 10.w),
-                    decoration: BoxDecoration(color: Color(0xff03506C)),
-                    child: Padding(
-                        padding: EdgeInsets.all(5),
-                        child: Text(
-                          "DAILY NEEDS",
-                          style: TextStyle(color: Colors.white, fontSize: 13),
-                        )),
-                  ),
-                  Container(
-                    margin: EdgeInsets.only(left: width * 0.50),
-                    child: Text(
-                      "SEE ALL",
-                      style: TextStyle(color: Color(0xffFC5455)),
+              DelayedDisplay(
+                delay: Duration(microseconds: 500),
+                child: Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: 10.w),
+                      decoration: BoxDecoration(color: Color(0xff03506C)),
+                      child: Padding(
+                          padding: EdgeInsets.all(5),
+                          child: Text(
+                            "DAILY NEEDS",
+                            style: TextStyle(color: Colors.white, fontSize: 13),
+                          )),
                     ),
-                  ),
-                ],
+                    Container(
+                      margin: EdgeInsets.only(left: width * 0.50),
+                      child: Text(
+                        "SEE ALL",
+                        style: TextStyle(color: Color(0xffFC5455)),
+                      ),
+                    ),
+                  ],
+                ),
               ),
               SizedBox(
                 height: 10.h,
