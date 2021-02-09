@@ -1,0 +1,19 @@
+[
+    {
+        "image":"assets/veg.png",
+        "name":"Vegitables",
+        "color":"0xff008000"
+    },
+    {
+        "image":"assets/fruits.jpg",
+        "name":"fruits",
+        "color":"0xffFF0000"
+
+    },
+    {
+        "image":"assets/masala.jpg",
+        "name":"masala",
+        "color":"0xffFFD700"
+
+    }
+]
