@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DetailScreenCard extends StatefulWidget {
   String image, price, name, quentity, description;
+
   DetailScreenCard(
       {this.image, this.name, this.price, this.quentity, this.description});
   @override

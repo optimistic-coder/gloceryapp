@@ -11,9 +11,10 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class Detail extends StatefulWidget {
   String image, price, name, quentity, description, color1, color2;
-  int quan;
+  int quan, id;
   Detail(
-      {this.image,
+      {this.id,
+      this.image,
       this.name,
       this.price,
       this.quentity,
@@ -92,6 +93,7 @@ class _DetailState extends State<Detail> {
                   BlocProvider.of<FoodBloc>(context).add(
                     FoodEvent.add(
                       Foods(
+                          widget.id,
                           widget.image,
                           widget.name,
                           widget.price,

@@ -22,6 +22,25 @@ class FoodBloc extends Bloc<FoodEvent, List<Foods>> {
         newState.removeAt(event.foodIndex);
         yield newState;
         break;
+      case EventType.inc:
+        List<Foods> newState = List.from(state);
+
+        for (var i = 0; i < newState.length; i++) {
+          if (newState[i].id == event.id) {
+            newState[i].quan = newState[i].quan + 1;
+          }
+        }
+        yield newState;
+        break;
+      case EventType.dec:
+        List<Foods> newState = List.from(state);
+        for (var i = 0; i < newState.length; i++) {
+          if (newState[i].id == event.id) {
+            newState[i].quan = newState[i].quan - 1;
+          }
+        }
+        yield newState;
+        break;
 
       default:
         throw Exception('Event not found');

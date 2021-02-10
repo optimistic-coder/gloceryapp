@@ -48,6 +48,7 @@ class _DailyState extends State<Daily> {
                             child: Padding(
                                 padding: EdgeInsets.only(left: 10.w),
                                 child: DailyCard(
+                                    id: my_data[i]["id"],
                                     image: my_data[i]["image"],
                                     name: my_data[i]["name"],
                                     price: my_data[i]["price"],

@@ -2,8 +2,9 @@ import 'package:flutter/cupertino.dart';
 
 class Foods {
   String image, name, price, quentety, color1, color2, description;
-  int quentity, quan;
-  Foods(image, name, price, quentety, color1, color2, description, quan) {
+  int id, quan;
+  Foods(id, image, name, price, quentety, color1, color2, description, quan) {
+    this.id = id;
     this.image = image;
     this.name = name;
     this.price = price;

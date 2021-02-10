@@ -6,13 +6,15 @@ import 'package:grocery_test_app/events/food_event.dart';
 
 class AddCart extends StatefulWidget {
   String image, price, name, quentity, description;
-  int index;
+  int index, id, quan;
   AddCart(
-      {this.image,
+      {this.id,
+      this.image,
       this.name,
       this.price,
       this.quentity,
       this.description,
+      this.quan,
       this.index});
   @override
   _AddCartState createState() => _AddCartState();
@@ -53,7 +55,8 @@ class _AddCartState extends State<AddCart> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Padding(padding: EdgeInsets.all(5), child: Text("200")),
+                    Padding(
+                        padding: EdgeInsets.all(5), child: Text(widget.price)),
                     Padding(
                         padding: EdgeInsets.all(5),
                         child: Text(
@@ -80,29 +83,41 @@ class _AddCartState extends State<AddCart> {
                 children: [
                   Padding(
                     padding: EdgeInsets.all(5),
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Color(0xffA8DE1C),
-                          borderRadius: BorderRadius.all(Radius.circular(15))),
-                      child: Icon(
-                        Icons.add,
-                        color: Colors.white,
+                    child: InkWell(
+                      onTap: () {
+                        BlocProvider.of<FoodBloc>(context).add(
+                          FoodEvent.inc(widget.id),
+                        );
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                            color: Color(0xffA8DE1C),
+                            borderRadius:
+                                BorderRadius.all(Radius.circular(15))),
+                        child: Icon(
+                          Icons.add,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
                   Padding(
                       padding: EdgeInsets.all(5),
                       child: Text(
-                        "1",
+                        widget.quan.toString(),
                         style: TextStyle(fontWeight: FontWeight.bold),
                       )),
                   Padding(
                     padding: EdgeInsets.all(5),
                     child: InkWell(
                       onTap: () {
-                        BlocProvider.of<FoodBloc>(context).add(
-                          FoodEvent.delete(widget.index),
-                        );
+                        if (widget.quan == 1) {
+                          BlocProvider.of<FoodBloc>(context)
+                              .add(FoodEvent.delete(widget.index));
+                        } else {
+                          BlocProvider.of<FoodBloc>(context)
+                              .add(FoodEvent.dec(widget.id));
+                        }
                       },
                       child: Container(
                         decoration: BoxDecoration(

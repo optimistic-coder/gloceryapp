@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:grocery_test_app/bloc/food_bloc.dart';
+import 'package:grocery_test_app/events/food_event.dart';
+import 'package:grocery_test_app/model/Food.dart';
 
 class DailyCard extends StatefulWidget {
   String image, price, name, quentity, description, color1, color2;
-  int quan;
+  int quan, id;
   DailyCard(
-      {this.image,
+      {this.id,
+      this.image,
       this.name,
       this.price,
       this.quentity,
@@ -76,19 +81,35 @@ class _DailyCardState extends State<DailyCard> {
             Positioned(
               bottom: 20.h,
               right: 20.w,
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(15)),
-                    gradient: LinearGradient(
-                        colors: [
-                          Color(int.parse(widget.color1)),
-                          Color(int.parse(widget.color2)),
-                        ],
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight)),
-                child: Icon(
-                  Icons.add,
-                  color: Colors.white,
+              child: InkWell(
+                onTap: () {
+                  BlocProvider.of<FoodBloc>(context).add(FoodEvent.add(
+                    Foods(
+                        widget.id,
+                        widget.image,
+                        widget.name,
+                        widget.price,
+                        widget.quentity,
+                        widget.color1,
+                        widget.color2,
+                        widget.description,
+                        widget.quan),
+                  ));
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(15)),
+                      gradient: LinearGradient(
+                          colors: [
+                            Color(int.parse(widget.color1)),
+                            Color(int.parse(widget.color2)),
+                          ],
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight)),
+                  child: Icon(
+                    Icons.add,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             )

@@ -54,10 +54,12 @@ class _CartState extends State<Cart> {
                               Padding(
                                   padding: EdgeInsets.only(left: 10.w),
                                   child: AddCart(
+                                    id: foodList[i].id,
                                     image: foodList[i].image,
                                     name: foodList[i].name,
                                     price: foodList[i].price,
                                     quentity: foodList[i].quentety,
+                                    quan: foodList[i].quan,
                                     description: foodList[i].description,
                                     index: i,
                                   )),

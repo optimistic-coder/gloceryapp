@@ -7,32 +7,41 @@ import 'package:grocery_test_app/model/Food.dart';
 
 class Cards extends StatefulWidget {
   String image, price, name, quentity, color1, color2, description;
-  int quan;
+  int quan, id, index;
   Cards(
-      {this.image,
+      {this.id,
+      this.image,
       this.name,
       this.price,
       this.quentity,
       this.color1,
       this.color2,
       this.description,
-      this.quan});
+      this.quan,
+      this.index});
   @override
   _CardsState createState() => _CardsState();
 }
 
 class _CardsState extends State<Cards> {
-  var press = false;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    print(widget.index);
   }
 
   @override
   Widget build(BuildContext context) {
     var width = MediaQuery.of(context).size.width;
     var height = MediaQuery.of(context).size.height;
+    final snackBar = SnackBar(
+      content: Text('Added!'),
+    );
+
+    // Find the Scaffold in the widget tree and use
+    // it to show a SnackBar.
+
     return Container(
       // margin: EdgeInsets.only(left: 30, top: 100, right: 30, bottom: 50),
       height: height * 0.27,
@@ -96,79 +105,36 @@ class _CardsState extends State<Cards> {
           Positioned(
               bottom: 0,
               child: Container(
-                height: 30.h,
-                decoration: BoxDecoration(
-                    gradient: LinearGradient(colors: [
-                  Color(int.parse(widget.color1)),
-                  Color(int.parse(widget.color2)),
-                ], begin: Alignment.centerLeft, end: Alignment.centerRight)),
-                width: width * 0.43,
-                child: press == false
-                    ? InkWell(
-                        onTap: () {
-                          BlocProvider.of<FoodBloc>(context).add(
-                            FoodEvent.add(
-                              Foods(
-                                  widget.image,
-                                  widget.name,
-                                  widget.price,
-                                  widget.quentity,
-                                  widget.color1,
-                                  widget.color2,
-                                  widget.description,
-                                  widget.quan),
-                            ),
-                          );
-                          setState(() {
-                            press = true;
-                          });
-                        },
-                        child: Center(
-                            child: Text(
-                          "ADD to Cart",
-                          style: TextStyle(color: Colors.white),
-                        )),
-                      )
-                    : Row(
-                        children: [
-                          SizedBox(
-                            width: 40.w,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15))),
-                            child: Icon(
-                              Icons.remove,
-                              color: Colors.green,
-                            ),
-                          ),
-                          SizedBox(
-                            width: 20.w,
-                          ),
-                          Text(
-                            widget.quan.toString(),
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          SizedBox(
-                            width: 20.w,
-                          ),
-                          Container(
-                            decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(15))),
-                            child: Icon(
-                              Icons.add,
-                              color: Colors.green,
-                            ),
-                          )
-                        ],
-                      ),
-              ))
+                  height: 30.h,
+                  decoration: BoxDecoration(
+                      gradient: LinearGradient(colors: [
+                    Color(int.parse(widget.color1)),
+                    Color(int.parse(widget.color2)),
+                  ], begin: Alignment.centerLeft, end: Alignment.centerRight)),
+                  width: width * 0.43,
+                  child: InkWell(
+                    onTap: () {
+                      BlocProvider.of<FoodBloc>(context).add(FoodEvent.add(
+                        Foods(
+                          widget.id,
+                          widget.image,
+                          widget.name,
+                          widget.price,
+                          widget.quentity,
+                          widget.color1,
+                          widget.color2,
+                          widget.description,
+                          widget.quan,
+                        ),
+                      ));
+                      Scaffold.of(context).showSnackBar(snackBar);
+                    },
+                    child: Center(
+                        child: Text(
+                      "ADD to Cart",
+                      style: TextStyle(color: Colors.white),
+                    )),
+                  )))
         ],
       ),
     );

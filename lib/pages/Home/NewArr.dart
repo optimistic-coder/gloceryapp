@@ -29,6 +29,7 @@ class _NewArrState extends State<NewArr> {
                           Padding(
                               padding: EdgeInsets.only(left: 10.w),
                               child: Cards(
+                                id: my_data[i]["id"],
                                 image: my_data[i]["image"],
                                 name: my_data[i]["name"],
                                 price: my_data[i]["price"],
@@ -37,6 +38,7 @@ class _NewArrState extends State<NewArr> {
                                 color2: my_data[i]["color2"],
                                 description: my_data[i]["description"],
                                 quan: my_data[i]["quan"],
+                                index: i,
                               ))
                       ],
                     )
